@@ -29,17 +29,17 @@ vectorizer = CountVectorizer(stop_words = 'english', analyzer='word', min_df = 5
 shuffle(train_data)
 
 test_data = train_data[150:]
-test_data_song =  [ doc for (doc,label) in test_data]
+test_data_tweet =  [ doc for (doc,label) in test_data]
 test_data_label = [ label for (doc,label) in test_data] 
 
 #print(len(test_data))
 train_data = train_data[:150]
-train_data_song =  [ doc for (doc,label) in train_data]
+train_data_tweet =  [ doc for (doc,label) in train_data]
 train_data_label = [ label for (doc,label) in train_data] 
 #print(len(train_data))
 
-count_train_data =  vectorizer.fit_transform(train_data_song)  
-count_test_data  =  vectorizer.transform(test_data_song)
+count_train_data =  vectorizer.fit_transform(train_data_tweet)  
+count_test_data  =  vectorizer.transform(test_data_tweet)
 
 #naive_bayes = GaussianNB()
 #naive_bayes = ComplementNB()
