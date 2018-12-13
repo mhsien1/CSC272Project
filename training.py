@@ -54,7 +54,7 @@ vectorizer = CountVectorizer(stop_words = 'english', analyzer='word', min_df = 5
 # Shuffles the training data.
 shuffle(train_data)
 
-print(len(train_data))
+#print(len(train_data))
 
 # takes the first x tweets to be used as to train the classifier
 # seperates the tweets and the labels
@@ -108,9 +108,12 @@ print("confusion matrix:")
 print(metrics.confusion_matrix(test_data_label, result))
 
 
+# get unlabeled tweets from the whole dataset
 df5 = pd.read_csv('farley.csv')
 df6 = pd.read_csv('Gillibrand.csv')
 df7 = pd.read_csv('gillibrand2.csv')
+df8 = pd.read_csv('gillibrand_new_unlabeled.csv')
+df9 = pd.read_csv('gillibrand_new_unlabeled1.csv')
 
 for row in df5.itertuples():
     total_data.append(row[3])    
@@ -121,6 +124,11 @@ for row in df6.itertuples():
 for row in df7.itertuples():
     total_data.append(row[3])    
 
+for row in df8.itertuples():
+    total_data.append(row[3])    
+
+for row in df9.itertuples():
+    total_data.append(row[3])    
 
 count_total_data  =  vectorizer.transform(total_data)
 
@@ -129,6 +137,7 @@ counter =(collections.Counter(final_result))
 print(counter)
 print(counter['dem'])
 
+#bar graph of all the tweets
 x = ['Dem','Rep','Neu']
 y_pos = np.arange(len(x))
 amount = [counter['dem'],counter['rep'],counter['ind']]
@@ -142,7 +151,7 @@ labels = ['Dem','Rep']
 sizes = [counter['dem'],counter['rep']]
 #explode = (0.1, 0, 0, 0)  # explode 1st slice
  
-# Plot
+# Plot pie chart of republicans vs democrats on twitter
 plt.pie(sizes,labels=labels,
         autopct='%1.1f%%', shadow=True, startangle=140)
  
