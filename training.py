@@ -16,10 +16,13 @@ import pandas as pd
 df = pd.read_csv('nysenate_labeled.csv')
 df2 = pd.read_csv('election2018.csv')
 df3 = pd.read_csv('farley_labeled.csv')
+df4 = pd.read_csv('gillibrand_labeled.csv')
+
 # used doublecheck the format of the given csv file
 print(df.head(1))
 print(df2.head(1))
 print(df3.head(1))
+print(df4.head(1))
 
 #store all data into train_data
 train_data = []
@@ -40,6 +43,10 @@ for row in df3.itertuples():
     #print(row[4])
     train_data.append((row[3],row[4])) 
 
+for row in df4.itertuples():
+    #print(row[4])
+    train_data.append((row[3],row[4])) 
+
 # Stop word remove the most common words in the english language
 # minimum document frequency is 5, meaning a word must appear in 5 seperate tweets to be considered
 vectorizer = CountVectorizer(stop_words = 'english', analyzer='word', min_df = 5, binary = True,max_features = 10000)
@@ -47,11 +54,11 @@ vectorizer = CountVectorizer(stop_words = 'english', analyzer='word', min_df = 5
 # Shuffles the training data.
 shuffle(train_data)
 
-print(len(test_data))
+print(len(train_data))
 
 # takes the first x tweets to be used as to train the classifier
 # seperates the tweets and the labels
-x = 300
+x = 750
 test_data = train_data[x:]
 test_data_tweet =  [ doc for (doc,label) in test_data]
 test_data_label = [ label for (doc,label) in test_data] 
@@ -103,12 +110,17 @@ print(metrics.confusion_matrix(test_data_label, result))
 
 df5 = pd.read_csv('farley.csv')
 df6 = pd.read_csv('Gillibrand.csv')
+df7 = pd.read_csv('gillibrand2.csv')
 
 for row in df5.itertuples():
     total_data.append(row[3])    
 
 for row in df6.itertuples():
     total_data.append(row[3])    
+
+for row in df7.itertuples():
+    total_data.append(row[3])    
+
 
 count_total_data  =  vectorizer.transform(total_data)
 
